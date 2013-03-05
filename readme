@@ -1,0 +1,21 @@
+Usage: punchclock [OPTION] [FLAGS...]
+PunchClock is a cli time tracker.
+
+Examples:
+  punchclock in --time 1234567890   # Punch in at the time 123456788990.
+  punchclock out --update 2         # Change entry #2 punch out time to now.
+  punchclock in -u 4 -t 123         # Update entry #5 punch in time to 123.
+  punchclock in --tag ClientA       # Set tag to ClientA.
+  punchclock in -u 3 --tag ClientB  # Update entry #3 to ClientB.
+  punchclock list                   # Show logged punches.
+  punchclock list --tag ClientA     # Show logged punches with tag ClientA.
+
+  Options:
+    in            Punch in with current time.
+    out           Punch out with current time.
+    list          Show logged punches.
+
+  Flags:
+  -t, --time [time]       Use specific time instead of now.
+  -u, --update [index]    Update entry time.
+  --tag [tag]             Use a specific tag.
