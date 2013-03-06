@@ -62,6 +62,9 @@ if(isset($options['operands'][1])){
         }
       } else { // Update flag
         if(isset($db[$u])){ // Update index exists
+          if(isset($options['flags']['--tag'])){
+            $db[$u]->tag = $options['flags']['--tag'];
+          }
           $db[$u]->end = $t;
           save($db);
         } else { // Update index does not exist
@@ -91,7 +94,7 @@ if(isset($options['operands'][1])){
         if($obj->end == ""){
           $obj->end = time();
         }
-        echo $obj->end - $obj->start." s";
+        echo ago($obj->end - $obj->start);
         if(isset($obj->tag) and $obj->tag != ""){
           echo " [".$obj->tag."]";
         }
@@ -107,17 +110,9 @@ if(isset($options['operands'][1])){
   man();
 }
 
-function ago($difference){
-   //$difference = time() - $timestamp;
-   $periods = array("second", "minute", "hour", "day", "week", "month", "years", "decade");
-   $lengths = array("60","60","24","7","4.35","12","10");
-   for($j = 0; $difference >= $lengths[$j]; $j++)
-   $difference /= $lengths[$j];
-   $difference = round($difference);
-   if($difference != 1) $periods[$j].= "s";
-   $text = "$difference $periods[$j] ago";
-   return $text;
-  }
+function ago($seconds){
+  return gmdate('H\h i\m s\s',$seconds);
+}
 
 function time_flag($options){
   if(isset($options['flags']['-t'])){
